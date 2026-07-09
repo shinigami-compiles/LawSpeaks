@@ -1,7 +1,7 @@
 # ⚖️ LawSpeaks – AI-Powered Indian Legal Awareness Assistant
 
 <p align="center">
-  <img src="ss/img1.png" width="100%">
+  <img src="ss/court.jpg" width="100%">
 </p>
 
 <p align="center">
