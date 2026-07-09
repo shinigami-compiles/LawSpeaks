@@ -28,7 +28,7 @@
     </td>
     <td align="center">
       <strong>RightFull Rights</strong><br>
-      <img src="sss/img2.png" width="400">
+      <img src="ss/img2.png" width="400">
     </td>
   </tr>
 
