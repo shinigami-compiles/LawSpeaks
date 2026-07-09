@@ -11,11 +11,8 @@
 # 🎥 Demo Video
 
 <p align="center">
-  <a href="ss/final_ls.mp4">
-    <img src="ss/court.jpg" width="60%">
-  </a>
+  <img src="ss/ls.gif" width="60%">
 </p>
-
 
 # 📸 UI Preview
 
