@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Risk &amp; Urgency Checker | LawSpeaks</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "error-container": "#ffdad6",
+                        "on-secondary-container": "#1b1c1c",
+                        "surface-container-low": "#f3f3f4",
+                        "on-tertiary-fixed": "#ffffff",
+                        "secondary": "#5e5e5e",
+                        "surface-dim": "#dadadb",
+                        "secondary-container": "#d5d4d4",
+                        "inverse-surface": "#2f3132",
+                        "surface-container-high": "#e8e8e9",
+                        "tertiary-fixed": "#5e5e5f",
+                        "on-secondary": "#ffffff",
+                        "tertiary-fixed-dim": "#464747",
+                        "on-tertiary": "#e3e2e2",
+                        "surface": "#f9f9fa",
+                        "surface-container-highest": "#e2e2e3",
+                        "on-surface": "#1a1c1d",
+                        "surface-bright": "#f9f9fa",
+                        "tertiary-container": "#747475",
+                        "on-tertiary-container": "#ffffff",
+                        "inverse-primary": "#c6c6c6",
+                        "on-secondary-fixed-variant": "#3b3b3b",
+                        "secondary-fixed-dim": "#acabab",
+                        "on-primary-fixed": "#ffffff",
+                        "on-surface-variant": "#474747",
+                        "surface-container": "#eeeeef",
+                        "on-error-container": "#410002",
+                        "on-primary": "#e2e2e2",
+                        "surface-container-lowest": "#ffffff",
+                        "on-primary-fixed-variant": "#e2e2e2",
+                        "background": "#f9f9fa",
+                        "primary-fixed-dim": "#474747",
+                        "on-error": "#ffffff",
+                        "on-tertiary-fixed-variant": "#e3e2e2",
+                        "surface-tint": "#5e5e5e",
+                        "on-primary-container": "#ffffff",
+                        "error": "#ba1a1a",
+                        "secondary-fixed": "#c7c6c6",
+                        "inverse-on-surface": "#f0f1f2",
+                        "primary-container": "#3b3b3b",
+                        "on-background": "#1a1c1d",
+                        "on-secondary-fixed": "#1b1c1c",
+                        "tertiary": "#3a3c3c",
+                        "primary-fixed": "#5e5e5e",
+                        "primary": "#000000",
+                        "outline": "#777777",
+                        "surface-variant": "#e2e2e3",
+                        "outline-variant": "#c6c6c6"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "fontFamily": {
+                        "headline": ["Manrope"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f9f9fa;
+        }
+        h1, h2, h3 {
+            font-family: 'Manrope', sans-serif;
+        }
+        .no-line-card {
+            background-color: #ffffff;
+        }
+
+        #globalLoader.show {
+            display: flex !important;
+        }
+    </style>
+</head>
+<body class="flex flex-col min-h-screen text-on-surface">
+<!-- TopAppBar -->
+<nav class="bg-stone-50/80 dark:bg-stone-950/80 backdrop-blur-xl fixed top-0 w-full z-50">
+<div class="flex justify-between items-center max-w-screen-2xl mx-auto px-8 h-16">
+<div class="flex items-center gap-3">
+    
+    <!-- ICON -->
+    <img src="../assets/icon.png" alt="Logo"  type = "png" class="w-16 h-16 object-contain"/>
+
+    <!-- NAME -->
+    <div class="text-2xl font-bold tracking-tighter text-stone-950 dark:text-stone-50 font-manrope">
+        LawSpeaks
+    </div>
+
+</div>
+<div class="hidden md:flex items-center gap-8 font-manrope tracking-tight font-semibold">
+<a class="text-stone-500 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-200 transition-colors" href="../index.html">Court</a>
+<a class="text-stone-500 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-200 transition-colors" href="../ask_legal_question/code.html">Ask</a>
+<a class="text-stone-500 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-200 transition-colors" href="../know_your_rights/code.html">Rightful Rights</a>
+<a class="text-stone-500 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-200 transition-colors" href="../legal_action_guide/code.html">Action Guide</a>
+<a class="text-stone-500 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-200 transition-colors" href="../case_examples/code.html">Case Samples</a>
+<a class="text-stone-500 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-200 transition-colors" href="../law_library/code.html">Law Library</a>
+<a class="text-stone-500 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-200 transition-colors" href="../my_legal_situation/code.html">Situational Evidence</a>
+<a class="text-stone-950 dark:text-stone-50 border-b-2 border-stone-950 dark:border-stone-50 pb-1" href="../risk_urgency_checker/code.html">Inspect Risk</a>
+</div>
+<div class="flex items-center gap-4">
+
+</div>
+</div>
+</nav>
+<!-- Main Content Canvas -->
+<main class="flex-grow pt-32 pb-24 px-6 md:px-12 max-w-7xl mx-auto w-full">
+<!-- Header Section -->
+<header class="mb-16 text-center max-w-3xl mx-auto">
+<h1 class="text-5xl md:text-6xl font-extrabold tracking-tighter mb-6">Risk Assessment</h1>
+<p class="text-lg text-secondary leading-relaxed">Describe your legal situation below. Our engine will evaluate the potential risks, urgency levels, and provide a roadmap for legal protection.</p>
+</header>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+<!-- Input Panel -->
+<div class="lg:col-span-7 space-y-8">
+<div class="bg-surface-container-low rounded-xl p-8 shadow-sm">
+<label class="block text-sm font-semibold uppercase tracking-widest text-secondary mb-4">The Inquiry</label>
+<textarea id="riskInput" class="w-full h-64 bg-surface-container-lowest border-none rounded-lg p-6 text-lg focus:ring-1 focus:ring-outline-variant/30 resize-none font-body placeholder:text-outline-variant" placeholder="E.g., I received a notice from my landlord regarding eviction without prior warning, or I was served with a summons for a civil debt."></textarea>
+<div class="mt-8 flex items-center justify-between">
+<div class="flex gap-2">
+<span class="px-3 py-1 bg-secondary-container text-on-secondary-container text-xs font-bold rounded-full uppercase tracking-tighter">Tenant Rights</span>
+<span class="px-3 py-1 bg-secondary-container text-on-secondary-container text-xs font-bold rounded-full uppercase tracking-tighter">Civil Law</span>
+</div>
+<button onclick="checkRisk()" class="proceed-btn bg-primary text-on-primary px-8 py-4 rounded-lg font-headline font-bold text-lg hover:bg-primary-container transition-all flex items-center gap-2 group">
+                            Check Risk Level
+                            <span class="material-symbols-outlined group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</button>
+</div>
+</div>
+<div class="p-8 bg-surface-container-lowest rounded-xl">
+<h3 class="text-xl font-bold mb-4">Why Risk Assessment Matters?</h3>
+<p class="text-on-surface-variant leading-relaxed">Understanding the gravity of a legal notice can prevent irreversible damage to your property, assets, or reputation. LawSpeaks prioritizes actions based on statutory deadlines and constitutional protections.</p>
+</div>
+</div>
+<!-- Results Panel (Simulated) -->
+<div class="lg:col-span-5 space-y-6">
+<!-- Risk Badge Area -->
+<div class="bg-surface-container-highest rounded-xl p-8 flex flex-col items-center text-center">
+<div class="mb-4">
+<span class="text-xs font-bold tracking-[0.2em] uppercase text-on-surface-variant block mb-2">Current Assessment</span>
+<div class="inline-flex items-center px-4 py-2 rounded-full border-2 border-error/20 bg-error-container text-on-error-container font-bold text-sm tracking-tight">
+<span class="w-2 h-2 bg-error rounded-full mr-2 animate-pulse"></span>
+                            
+                        </div>
+</div>
+<div class="h-[1px] w-full bg-outline-variant/20 my-6"></div>
+<div id="riskText" class="text-sm font-medium text-on-surface-variant leading-relaxed">
+                        
+                    </div>
+</div>
+<!-- Explanation Bento -->
+
+<!-- Next Steps -->
+
+
+
+</div>
+</div>
+</div>
+<!-- Secondary Information / Social Proof Grid -->
+<section class="mt-24 grid grid-cols-1 md:grid-cols-3 gap-8">
+<div class="p-8 bg-surface-container-low rounded-xl">
+<span class="material-symbols-outlined text-3xl mb-4">verified_user</span>
+<h4 class="font-headline font-bold text-lg mb-2">Privacy Secured</h4>
+<p class="text-sm text-on-surface-variant">Your queries are encrypted and never stored against your identity. We respect the sanctity of legal privilege.</p>
+</div>
+<div class="p-8 bg-surface-container-low rounded-xl">
+<span class="material-symbols-outlined text-3xl mb-4">update</span>
+<h4 class="font-headline font-bold text-lg mb-2">Real-time Updates</h4>
+<p class="text-sm text-on-surface-variant">Risk scores are calculated based on the most recent 2024 Supreme Court and High Court rulings.</p>
+</div>
+<div class="p-8 bg-surface-container-low rounded-xl">
+<span class="material-symbols-outlined text-3xl mb-4">translate</span>
+<h4 class="font-headline font-bold text-lg mb-2">Multilingual Input</h4>
+<p class="text-sm text-on-surface-variant">Input your legal issue in any official Indian language; our engine understands regional legal nuances.</p>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="w-full py-12 mt-auto bg-stone-100 dark:bg-stone-900">
+<div class="flex flex-col items-center gap-6 px-8 text-center max-w-screen-2xl mx-auto">
+<div class="font-manrope font-bold text-stone-900 dark:text-stone-100 text-xl">LawSpeaks</div>
+<p class="font-inter text-sm leading-relaxed text-stone-600 dark:text-stone-400 max-w-2xl">
+                © 2024 LawSpeaks. This tool provides legal information, not legal advice. No attorney-client relationship is formed.
+            </p>
+<div class="flex flex-wrap justify-center gap-6">
+<a class="text-stone-500 dark:text-stone-400 hover:text-stone-950 dark:hover:text-stone-50 transition-colors text-sm font-medium" href="#">Terms of Service</a>
+<a class="text-stone-500 dark:text-stone-400 hover:text-stone-950 dark:hover:text-stone-50 transition-colors text-sm font-medium" href="#">Privacy Policy</a>
+<a class="underline text-stone-900 dark:text-stone-100 text-sm font-medium" href="#">Risk Assessment</a>
+<a class="text-stone-500 dark:text-stone-400 hover:text-stone-950 dark:hover:text-stone-50 transition-colors text-sm font-medium" href="#">Disclaimer</a>
+</div>
+</div>
+</footer>
+
+<script>
+const loaderImages = [
+    "/assets/loading/loader1.gif",
+    "/assets/loading/loader2.gif",
+    "/assets/loading/loader3.gif",
+    "/assets/loading/loader4.gif",
+    "/assets/loading/loader5.gif",
+    "/assets/loading/loader6.gif",
+    "/assets/loading/loader7.gif",
+    "/assets/loading/loader8.gif"
+];
+
+function getRandomLoader() {
+    return loaderImages[Math.floor(Math.random() * loaderImages.length)];
+}
+
+function showLoader() {
+    const loader = document.getElementById("globalLoader");
+    const img = document.getElementById("loaderImage");
+
+    img.src = getRandomLoader();
+    loader.classList.add("show");
+}
+
+function hideLoader() {
+    document.getElementById("globalLoader").classList.remove("show");
+}
+
+/* Prevent stuck loader */
+window.addEventListener("pageshow", () => {
+    hideLoader();
+});
+
+/* Preload GIFs */
+loaderImages.forEach(src => {
+    const img = new Image();
+    img.src = src;
+});
+</script>
+
+<script src="../js/api.js"></script>
+
+<script>
+
+const input = document.getElementById("riskInput");
+const riskText = document.getElementById("riskText");
+const explanation = document.getElementById("riskExplanation");
+const steps = document.getElementById("riskSteps");
+
+/* CHECK RISK */
+async function checkRisk() {
+    const issue = input.value.trim();
+
+    if (!issue) {
+        riskText.innerText = "⚠️ Please enter your situation.";
+        return;
+    }
+
+    // Loading state
+    riskText.innerText = "⏳ Evaluating risk...";
+    explanation.innerText = "";
+    steps.innerHTML = "";
+
+    const response = await NyayaAPI.getRiskCheck(issue);
+
+    // Inject response into existing UI
+    riskText.innerText = response;
+
+    explanation.innerText = response;
+
+    const step = document.createElement("div");
+    step.className = "flex gap-4 p-4 bg-primary-container rounded-lg";
+
+    step.innerHTML = `
+        <div class="font-headline font-extrabold text-2xl opacity-30">01</div>
+        <div class="text-sm font-medium">${response}</div>
+    `;
+
+    steps.appendChild(step);
+}
+
+</script>
+
+<!-- GLOBAL LOADER -->
+<div id="globalLoader" class="fixed inset-0 z-[99999] hidden items-center justify-center backdrop-blur-[20px] bg-black/60">
+    <div class="flex flex-col items-center gap-4">
+        <img id="loaderImage" class="w-40 h-40 object-contain block" />
+        <p class="text-white font-semibold tracking-wide">Predicting Possible Risk...</p>
+    </div>
+</div>
+</body></html>

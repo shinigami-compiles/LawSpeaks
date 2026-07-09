@@ -1,0 +1,66 @@
+# ============================
+# Python
+# ============================
+__pycache__/
+*.py[cod]
+*$py.class
+
+
+**/__pycache__/
+# Virtual Environment
+law/
+.venv/
+env/
+ENV/
+
+# Environment Variables
+.env
+
+# IDE
+.vscode/
+.idea/
+
+# OS Files
+.DS_Store
+Thumbs.db
+
+# Python Cache
+.pytest_cache/
+.mypy_cache/
+.cache/
+
+# Logs
+logs/
+*.log
+
+# Temporary Files
+*.tmp
+*.bak
+*.swp
+
+# Build Files
+build/
+dist/
+*.egg-info/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Git
+.git/
+
+
+api_key.txt
+# ============================
+# Keep FAISS Files
+# ============================
+embeddings/
+
+
+# ============================
+# Ignore Raw Dataset
+# ============================
+data/
+data/statutes/
+data/judgments/
+data/qa/

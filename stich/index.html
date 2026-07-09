@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+
+<html class="scroll-smooth" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>LawSpeaks - Indian Legal Self-Defense Assistant</title>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Google Fonts: Manrope (Headlines) & Inter (Body) -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Manrope:wght@500;700;800&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Theme Configuration -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "inverse-primary": "#c6c6c6",
+                        "on-tertiary-container": "#ffffff",
+                        "surface": "#dcdcdc",
+                        "surface-tint": "#5e5e5e",
+                        "tertiary-fixed-dim": "#474747",
+                        "secondary-fixed": "#c6c6c7",
+                        "primary-fixed": "#5e5e5e",
+                        "surface-container": "#dcdcdc",
+                        "primary-fixed-dim": "#474747",
+                        "secondary": "#5d5e60",
+                        "on-primary": "#e2e2e2",
+                        "on-tertiary-fixed-variant": "#e4e2e1",
+                        "on-primary-fixed": "#ffffff",
+                        "outline-variant": "#c6c6c6",
+                        "on-primary-container": "#ffffff",
+                        "secondary-fixed-dim": "#aaabac",
+                        "on-secondary-fixed-variant": "#3a3c3d",
+                        "on-tertiary": "#e4e2e1",
+                        "on-secondary-container": "#1a1c1d",
+                        "on-error-container": "#410002",
+                        "background": "#dcdcdc",
+                        "surface-dim": "#dadada",
+                        "on-background": "#1b1b1b",
+                        "error-container": "#ffdad6",
+                        "surface-variant": "#e2e2e2",
+                        "inverse-surface": "#303030",
+                        "on-surface-variant": "#474747",
+                        "on-secondary": "#ffffff",
+                        "surface-container-low": "#dcdcdc",
+                        "tertiary-container": "#757474",
+                        "outline": "#777777",
+                        "tertiary": "#3b3b3b",
+                        "inverse-on-surface": "#f1f1f1",
+                        "on-error": "#ffffff",
+                        "surface-container-high": "#e8e8e8",
+                        "surface-bright": "#f9f9f9",
+                        "on-primary-fixed-variant": "#e2e2e2",
+                        "primary": "#000000",
+                        "primary-container": "#3b3b3b",
+                        "surface-container-highest": "#e2e2e2",
+                        "on-secondary-fixed": "#1a1c1d",
+                        "tertiary-fixed": "#5f5e5e",
+                        "on-tertiary-fixed": "#ffffff",
+                        "on-surface": "#1b1b1b",
+                        "error": "#ba1a1a",
+                        "secondary-container": "#d4d4d5",
+                        "surface-container-lowest": "#dcdcdc"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "fontFamily": {
+                        "headline": ["Manrope", "sans-serif"],
+                        "body": ["Inter", "sans-serif"],
+                        "label": ["Inter", "sans-serif"]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        /* Fallback styling for environments where JS canvas rendering is suppressed */
+        .cinematic-bg {
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        /* Flashcard Hover Animation */
+        .feature-card {
+            position: relative;
+            background: #DCDCDC; /* Initial Black Background */
+            border-radius: 15px;
+            cursor: pointer;
+            overflow: hidden; /* Keeps the expanding white corners inside the border */
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* The white corner expanding elements */
+        .feature-card::before,
+        .feature-card::after {
+            position: absolute;
+            content: "";
+            width: 0%;
+            height: 0%;
+            background-color: #000000; /* Hover White Background */
+            transition: all 0.5s ease-in-out;
+            z-index: 1; /* Sits below the text */
+        }
+
+        .feature-card::before {
+            top: 0;
+            right: 0;
+            border-radius: 0 15px 0 0%;
+        }
+
+        .feature-card::after {
+            bottom: 0;
+            left: 0;
+            border-radius: 0 0% 0 15px;
+        }
+
+        .feature-card:hover::before,
+        .feature-card:hover::after {
+            width: 100%;
+            height: 100%;
+            border-radius: 15px;
+        }
+
+        /* Keeps the text above the expanding white background */
+        .feature-card-content {
+            position: relative;
+            z-index: 10;
+            padding: 1.5rem;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        /* Initial Text Colors (White/Light Grey) */
+        .feature-title { color: #000000; transition: color 0.5s; }
+        .feature-desc { color: #000000; transition: opacity 0.3s ease, max-height 0.3s ease; opacity: 1; max-height: 100px; overflow: hidden; }
+        .feature-link { color: #000000; transition: color 0.5s; }
+
+        /* On Hover: Text turns black, description hides */
+        .feature-card:hover .feature-title { color: #ffffff; }
+        .feature-card:hover .feature-link { color: #ffffff; }
+        .feature-card:hover .feature-desc { opacity: 0; max-height: 0; }
+
+        /* Hover Icon Animation */
+        .hover-icon {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.5);
+            opacity: 0;
+            transition: all 0.5s ease-in-out;
+            z-index: 5;
+            pointer-events: none;
+        }
+
+        .feature-card:hover .hover-icon {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1);
+            /* This flips the white PNG to black so it's visible on the white hover background! */
+           
+        }
+
+
+        /* Animated Shine Buttons */
+        .btn-shine {
+            position: relative;
+            background-size: 250%;
+            background-position: left;
+            transition: background-position 1s ease, transform 0.2s;
+            z-index: 1; /* Creates a layer for the text to sit on top */
+            border: none;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        /* The inner solid background that creates the "border" effect */
+        .btn-shine::before {
+            content: "";
+            position: absolute;
+            inset: 2px; /* This determines the thickness of the shining border (2px) */
+            border-radius: inherit;
+            z-index: -1; /* Pushes the solid color behind your actual text */
+        }
+
+        .btn-shine:hover {
+            background-position: right;
+        }
+
+        .btn-shine:active {
+            transform: scale(0.95);
+        }
+
+        /* 1. Black Button / Silver-White Shine */
+        .btn-shine-black {
+            /* The moving background gradient */
+            background-image: linear-gradient(to right, #111111, #ffffff, #111111, #111111, #ffffff, #111111);
+            color: #ffffff;
+        }
+        .btn-shine-black::before {
+            background-color: #000000; /* Solid inner black */
+        }
+
+        /* 2. Grey Button / Black Shine */
+        .btn-shine-grey {
+            /* The moving background gradient */
+            background-image: linear-gradient(to right, #e2e2e2, #111111, #e2e2e2, #e2e2e2, #111111, #e2e2e2);
+            color: #000000;
+        }
+        .btn-shine-grey::before {
+            background-color: #e2e2e2; /* Solid inner grey matching your theme */
+        }
+
+
+        #globalLoader.show {
+            display: flex;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+
+
+    </style>
+</head>
+<body class="bg-surface text-on-surface font-body selection:bg-primary selection:text-surface-container-lowest antialiased overflow-x-hidden">
+<!-- TopNavBar (Generated from JSON) -->
+<header class="fixed top-0 left-0 w-full z-50 bg-transparent">
+<div class="flex justify-between items-center px-8 py-5 w-full max-w-screen-2xl mx-auto">
+<a href="#" class="flex items-center gap-3 transition-transform hover:scale-105 active:scale-95">
+    <img src="assets/icon.png" class="w-12 h-12 object-contain" alt="LawSpeaks Logo">
+    
+    <div class="text-2xl font-black tracking-tighter text-zinc-900 font-['Manrope']">LawSpeaks</div>
+</a>
+<nav class="hidden md:flex items-center gap-8">
+<a class="text-zinc-500 hover:text-zinc-900 transition-all font-['Manrope'] tracking-tight font-semibold uppercase text-xs hover:bg-zinc-100/50 transition-colors duration-300 py-2 px-3 rounded-sm" href="stich/index.html">Court</a>
+<a class="text-zinc-500 hover:text-zinc-900 transition-all font-['Manrope'] tracking-tight font-semibold uppercase text-xs hover:bg-zinc-100/50 transition-colors duration-300 py-2 px-3 rounded-sm" href="stich/ask_legal_question/code.html">Ask</a>
+<a class="text-zinc-500 hover:text-zinc-900 transition-all font-['Manrope'] tracking-tight font-semibold uppercase text-xs hover:bg-zinc-100/50 transition-colors duration-300 py-2 px-3 rounded-sm" href="stich/know_your_rights/code.html">Rightful Rights</a>
+<a class="text-zinc-500 hover:text-zinc-900 transition-all font-['Manrope'] tracking-tight font-semibold uppercase text-xs hover:bg-zinc-100/50 transition-colors duration-300 py-2 px-3 rounded-sm" href="stich/legal_action_guide/code.html">Action Guide</a>
+<a class="text-zinc-500 hover:text-zinc-900 transition-all font-['Manrope'] tracking-tight font-semibold uppercase text-xs hover:bg-zinc-100/50 transition-colors duration-300 py-2 px-3 rounded-sm" href="stich/law_library/code.html">Law Library</a>
+<a class="text-zinc-500 hover:text-zinc-900 transition-all font-['Manrope'] tracking-tight font-semibold uppercase text-xs hover:bg-zinc-100/50 transition-colors duration-300 py-2 px-3 rounded-sm" href="stich/case_examples/code.html">Case Samples</a>
+<a class="text-zinc-500 hover:text-zinc-900 transition-all font-['Manrope'] tracking-tight font-semibold uppercase text-xs hover:bg-zinc-100/50 transition-colors duration-300 py-2 px-3 rounded-sm" href="stich/my_legal_situation/code.html">Situational Evidence</a>
+<a class="text-zinc-500 hover:text-zinc-900 transition-all font-['Manrope'] tracking-tight font-semibold uppercase text-xs hover:bg-zinc-100/50 transition-colors duration-300 py-2 px-3 rounded-sm" href="stich/risk_urgency_checker/code.html">Inspect Risk</a>
+</nav>
+<button ></button>
+</div>
+</header>
+<main>
+<!-- Section 1: Hero (Split Layout) -->
+<section id="justice-section" class="min-h-screen w-full flex flex-col lg:flex-row pt-20 lg:pt-0">
+<!-- Left: Typography & Actions -->
+<div class="w-full lg:w-1/2 flex flex-col justify-center px-8 lg:px-24 py-16 bg-surface z-10">
+<h1 class="font-headline text-5xl lg:text-7xl font-extrabold text-primary tracking-tighter leading-[1.05] mb-8">
+                    Understand<br/>Your Legal<br/>Rights.
+                </h1>
+<p class="font-body text-lg text-on-surface-variant max-w-md mb-12 leading-relaxed">
+                    LawSpeaks helps citizens navigate the Indian legal system with AI-powered guidance. Clear, authoritative, and actionable insights for your legal self-defense.
+                </p>
+<div class="flex flex-col sm:flex-row gap-4">
+    <a href="stich/ask_legal_question/code.html" class="btn-shine btn-shine-black px-8 py-4 rounded-md font-label font-medium tracking-wide flex justify-center items-center gap-2">
+        Ask Questions
+    </a>
+    
+    <a href="stich/know_your_rights/code.html" class="btn-shine btn-shine-grey px-8 py-4 rounded-md font-label font-medium tracking-wide flex justify-center items-center gap-2">
+        Know Rights
+    </a>
+</div>
+</div>
+<!-- Right: Canvas / Image Sequence Area -->
+<div class="w-full lg:w-1/2 min-h-[512px] lg:min-h-screen bg-surface-container-low relative overflow-hidden cinematic-bg" data-alt="Cinematic, high-contrast black and white abstract close-up of the Scales of Justice, dramatic directional lighting, sharp shadows, pure monolithic aesthetic">
+    <canvas class="absolute inset-0 w-full h-full object-cover mix-blend-darken" style="-webkit-mask-image: radial-gradient(ellipse, black 55%, transparent 95%); mask-image: radial-gradient(ellipse, black 55%, transparent 95%);" id="justice-canvas"></canvas>
+</div>
+</section>
+<!-- Section 2: Hammer (Radial Flashcards) -->
+<section  id="hammer-section" class="min-h-screen w-full bg-surface-container relative overflow-hidden flex items-center justify-center py-32">
+<!-- Background Canvas Layer -->
+<div class="absolute inset-0 z-0 flex items-center justify-center bg-surface">
+    <canvas class="w-full h-full max-w-[80%] max-h-[80%] object-contain mix-blend-darken" style="-webkit-mask-image: radial-gradient(ellipse, black 55%, transparent 95%); mask-image: radial-gradient(ellipse, black 55%, transparent 95%);"  id="hammer-canvas"></canvas>
+</div>
+<!-- Content Container -->
+<div class="relative z-10 w-full max-w-6xl mx-auto px-8 h-full flex flex-col items-center justify-center min-h-[800px]">
+<!-- Center Anchor -->
+
+<!-- Radial Flashcards (Positioned absolutely to simulate radial spread) -->
+<!-- Top -->
+<div class="flashcard feature-card opacity-0 scale-75 absolute -top-[10%] left-1/2 -translate-x-1/2 w-64 h-[220px] shadow-2xl transform transition-transform hover:-translate-y-2">
+    <img src="https://img.icons8.com/ios-filled/100/FFFFFF/speech-bubble-with-dots.png" class="hover-icon w-16 h-16 object-contain" alt="Ask Icon">
+    <div class="feature-card-content">
+        <div>
+            <h3 class="feature-title font-headline text-2xl font-bold mb-2">Ask</h3>
+            <p class="feature-desc font-body text-sm leading-relaxed">Describe your legal issue in plain words and receive structured AI guidance based on Indian law.</p>
+        </div>
+        <a href="stich/ask_legal_question/code.html" class="feature-link flex items-center gap-2 font-bold uppercase tracking-widest text-xs mt-4">
+            Try<span class="material-symbols-outlined text-lg">arrow_forward</span>
+        </a>
+    </div>
+</div>
+
+<div class="flashcard feature-card opacity-0 scale-75 absolute top-[5%] -right-[5%] w-64 h-[220px] shadow-2xl transform transition-transform hover:-translate-y-2">
+    <img src="https://img.icons8.com/ios-filled/100/FFFFFF/law.png" class="hover-icon w-16 h-16 object-contain" alt="Rights Icon">
+    <div class="feature-card-content">
+        <div>
+            <h3 class="feature-title font-headline text-2xl font-bold mb-2">Know Rights</h3>
+            <p class="feature-desc font-body text-sm leading-relaxed">Comprehensive guides on your fundamental rights as a citizen.</p>
+        </div>
+        <a href="stich/know_your_rights/code.html" class="feature-link flex items-center gap-2 font-bold uppercase tracking-widest text-xs mt-4">
+            Try <span class="material-symbols-outlined text-lg">arrow_forward</span>
+        </a>
+    </div>
+</div>
+
+<div class="flashcard feature-card opacity-0 scale-75 absolute bottom-[5%] -right-[5%] w-64 h-[220px] shadow-2xl transform transition-transform hover:-translate-y-2">
+    <img src="https://img.icons8.com/ios-filled/100/FFFFFF/warning-shield.png" class="hover-icon w-16 h-16 object-contain" alt="Risk Icon">
+    <div class="feature-card-content">
+        <div>
+            <h3 class="feature-title font-headline text-2xl font-bold mb-2">Risk Checker</h3>
+            <p class="feature-desc font-body text-sm leading-relaxed">Evaluate the potential legal implications of a situation before you take action.</p>
+        </div>
+        <a href="stich/risk_urgency_checker/code.html" class="feature-link flex items-center gap-2 font-bold uppercase tracking-widest text-xs mt-4">
+            Try <span class="material-symbols-outlined text-lg">arrow_forward</span>
+        </a>
+    </div>
+</div>
+
+<div class="flashcard feature-card opacity-0 scale-75 absolute -bottom-[10%] left-1/2 -translate-x-1/2 w-64 h-[220px] shadow-2xl transform transition-transform hover:-translate-y-2">
+    <img src="https://img.icons8.com/ios-filled/100/FFFFFF/map-marker.png" class="hover-icon w-16 h-16 object-contain" alt="Guide Icon">
+    <div class="feature-card-content">
+        <div>
+            <h3 class="feature-title font-headline text-2xl font-bold mb-2">Action Guide</h3>
+            <p class="feature-desc font-body text-sm leading-relaxed">Step-by-step instructions for FIR, RTI, and more.</p>
+        </div>
+        <a href="stich/legal_action_guide/code.html" class="feature-link flex items-center gap-2 font-bold uppercase tracking-widest text-xs mt-4">
+            Try <span class="material-symbols-outlined text-lg">arrow_forward</span>
+        </a>
+    </div>
+</div>
+
+<div class="flashcard feature-card opacity-0 scale-75 absolute bottom-[5%] -left-[5%] w-64 h-[220px] shadow-2xl transform transition-transform hover:-translate-y-2">
+    <img src="https://img.icons8.com/ios-filled/100/FFFFFF/folder-invoices.png" class="hover-icon w-16 h-16 object-contain" alt="Cases Icon">
+    <div class="feature-card-content">
+        <div>
+            <h3 class="feature-title font-headline text-2xl font-bold mb-2">Case Examples</h3>
+            <p class="feature-desc font-body text-sm leading-relaxed">Learn from historical rulings and similar legal contexts.</p>
+        </div>
+        <a href="stich/case_examples/code.html" class="feature-link flex items-center gap-2 font-bold uppercase tracking-widest text-xs mt-4">
+            Try <span class="material-symbols-outlined text-lg">arrow_forward</span>
+        </a>
+    </div>
+</div>
+
+<div class="flashcard feature-card opacity-0 scale-75 absolute top-[5%] -left-[5%] w-64 h-[220px] shadow-2xl transform transition-transform hover:-translate-y-2">
+    <img src="https://img.icons8.com/ios-filled/100/FFFFFF/books.png" class="hover-icon w-16 h-16 object-contain" alt="Library Icon">
+    <div class="feature-card-content">
+        <div>
+            <h3 class="feature-title font-headline text-2xl font-bold mb-2">Law Library</h3>
+            <p class="feature-desc font-body text-sm leading-relaxed">Direct access to the raw legal codes and acts of India.</p>
+        </div>
+        <a href="stich/law_library/code.html" class="feature-link flex items-center gap-2 font-bold uppercase tracking-widest text-xs mt-4">
+            Try <span class="material-symbols-outlined text-lg">arrow_forward</span>
+        </a>
+    </div>
+</div>
+
+</div>
+</section>
+<!-- Section 3: Book (Asymmetric Editorial Layout) -->
+<section id="book-section" class="min-h-screen w-full flex flex-col-reverse lg:flex-row bg-surface">
+<!-- Left: Typography -->
+<div class="w-full lg:w-5/12 flex flex-col justify-center items-center px-8 lg:px-16 py-24 bg-surface-container-lowest z-10 border-r border-outline-variant/10">
+
+    <div class="feature-card w-full max-w-md h-[450px] shadow-2xl transform transition-transform hover:-translate-y-2">
+        
+        <img src="https://img.icons8.com/ios-filled/150/FFFFFF/fingerprint.png" class="hover-icon w-32 h-32 object-contain" alt="Evidence Icon">
+
+        <div class="feature-card-content !p-10"> 
+            <div>
+                <h3 class="feature-title font-headline text-4xl font-bold mb-6">Situational Evidence</h3>
+                <p class="feature-desc font-body text-lg leading-relaxed text-on-surface-variant">
+                    Input details about a specific event—whether a property dispute, labor issue, or consumer complaint—and get a tailored analysis of where you stand and what your immediate next steps should be.
+                </p>
+            </div>
+            
+            <a href="stich/my_legal_situation/code.html" class="feature-link flex items-center gap-2 font-bold uppercase tracking-widest text-sm mt-8">
+                Try <span class="material-symbols-outlined text-2xl">arrow_forward</span>
+            </a>
+        </div>
+    </div>
+
+</div>
+
+
+<!-- Right: Canvas Area -->
+<div class="w-full lg:w-7/12 min-h-[512px] lg:min-h-screen bg-surface-container relative overflow-hidden cinematic-bg" data-alt="Cinematic, high-contrast black and white macro shot of the edge of hundreds of pages of a massive legal tome, extreme shallow depth of field, sharp monolithic texture">
+    <canvas class="absolute inset-0 w-full h-full object-cover mix-blend-darken" style="-webkit-mask-image: radial-gradient(ellipse, black 55%, transparent 95%); mask-image: radial-gradient(ellipse, black 55%, transparent 95%);" id="book-canvas"></canvas>
+</div>
+</section>
+</main>
+<!-- Footer (Generated from JSON) -->
+<footer class="w-full py-16 px-8 border-t border-zinc-200/10 bg-zinc-50">
+<div class="flex flex-col md:flex-row justify-between items-center gap-8 max-w-screen-2xl mx-auto">
+<div class="font-['Manrope'] font-bold text-zinc-900">LawSpeaks</div>
+<nav class="flex flex-wrap justify-center gap-6">
+<a class="font-['Inter'] text-[10px] tracking-widest uppercase text-zinc-500 hover:text-zinc-900 hover:underline decoration-zinc-400 underline-offset-4 opacity-80 hover:opacity-100 transition-opacity" href="#">Terms of Service</a>
+<a class="font-['Inter'] text-[10px] tracking-widest uppercase text-zinc-500 hover:text-zinc-900 hover:underline decoration-zinc-400 underline-offset-4 opacity-80 hover:opacity-100 transition-opacity" href="#">Privacy Protocol</a>
+<a class="font-['Inter'] text-[10px] tracking-widest uppercase text-zinc-500 hover:text-zinc-900 hover:underline decoration-zinc-400 underline-offset-4 opacity-80 hover:opacity-100 transition-opacity" href="#">Regulatory Disclosure</a>
+<a class="font-['Inter'] text-[10px] tracking-widest uppercase text-zinc-500 hover:text-zinc-900 hover:underline decoration-zinc-400 underline-offset-4 opacity-80 hover:opacity-100 transition-opacity" href="#">Contact</a>
+</nav>
+<div class="font-['Inter'] text-[10px] tracking-widest uppercase text-zinc-500">
+                © 2024 LawSpeaks. Authority in Every Citation.
+            </div>
+</div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+<script>
+    gsap.registerPlugin(ScrollTrigger);
+    
+    // Function to pad numbers (e.g., 1 becomes "001", 150 becomes "150")
+    const currentFrame = index => (`00${index}`).slice(-3);
+
+    /**
+     * Master function to handle Canvas Image Sequences
+     */
+    function setupCanvasSequence(config) {
+        const canvas = document.getElementById(config.canvasId);
+        const context = canvas.getContext("2d");
+        
+        // Set canvas resolution to match its display size for crispness
+        canvas.width = window.innerWidth / 2; // Roughly matching your 50vw layout
+        canvas.height = window.innerHeight;
+
+        if(config.fullWidth) {
+            canvas.width = window.innerWidth;
+        }
+
+        const images = [];
+        const airpods = { frame: 0 };
+
+        // Preload all images into an array using the specific frame count for this object
+        for (let i = 1; i <= config.frameCount; i++) {
+            const img = new Image();
+            // Updated to match ezgif-frame-001.jpg format
+            img.src = `${config.path}ezgif-frame-${currentFrame(i)}.jpg`;
+            images.push(img);
+        }
+
+        // Draw the first frame as soon as it loads
+        images[0].onload = render;
+
+        function render() {
+            context.clearRect(0, 0, canvas.width, canvas.height);
+            // Center and scale the image to cover the canvas
+            const img = images[airpods.frame];
+            if(!img) return;
+            
+            const scale = Math.max(canvas.width / img.width, canvas.height / img.height);
+            const x = (canvas.width / 2) - (img.width / 2) * scale;
+            const y = (canvas.height / 2) - (img.height / 2) * scale;
+            
+            context.drawImage(img, x, y, img.width * scale, img.height * scale);
+        }
+
+        // Return the animation timeline so we can attach ScrollTrigger
+        return gsap.to(airpods, {
+            frame: config.frameCount - 1, // Updated to use specific frame count
+            snap: "frame",
+            ease: "none",
+            onUpdate: render
+        });
+    }
+
+    // ==========================================
+    // 1. JUSTICE SCALES ANIMATION (Section 1)
+    // ==========================================
+    const justiceAnim = setupCanvasSequence({
+        canvasId: "justice-canvas",
+        path: "stich/assets/justice/",
+        fullWidth: false,
+        frameCount: 180 // Specifically set to 180 frames
+    });
+
+    ScrollTrigger.create({
+        trigger: "#justice-section",
+        start: "top top",
+        end: "+=300%", // Scroll distance
+        pin: true,     // Locks the section in place
+        animation: justiceAnim,
+        scrub: 0.5,    // Smooth scrubbing
+    });
+
+
+    // ==========================================
+    // 2. HAMMER STRIKE & FLASHCARDS (Section 2)
+    // ==========================================
+    const hammerAnim = setupCanvasSequence({
+        canvasId: "hammer-canvas",
+        path: "stich/assets/hammer/",
+        fullWidth: true,
+        frameCount: 150 // Specifically set to 150 frames
+    });
+
+    // Create a master timeline for Section 2
+    const hammerTimeline = gsap.timeline({
+        scrollTrigger: {
+            trigger: "#hammer-section",
+            start: "top top",
+            end: "+=300%", // Longer scroll distance for two actions
+            pin: true,
+            scrub: 0.5,
+        }
+    });
+
+    // Action A: Play the hammer animation sequence
+    hammerTimeline.add(hammerAnim, 0);
+
+    // Action B: The "Boom" - Flashcards appear at the exact end of the strike
+    hammerTimeline.to(".flashcard", {
+        opacity: 1,
+        scale: 1,
+        duration: 0.1, // Happens quickly
+        stagger: 0.05, // Pop in one after another
+        ease: "back.out(1.7)" // Adds a slight pop/bounce effect
+    }, ">-0.1"); // Triggers right as the hammer finishes
+
+
+    // ==========================================
+    // 3. BOOK OPENING ANIMATION (Section 3)
+    // ==========================================
+    const bookAnim = setupCanvasSequence({
+        canvasId: "book-canvas",
+        path: "stich/assets/book/",
+        fullWidth: false,
+        frameCount: 240 // Specifically set to 240 frames
+    });
+
+    ScrollTrigger.create({
+        trigger: "#book-section",
+        start: "top top",
+        end: "+=400%",
+        pin: true,
+        animation: bookAnim,
+        scrub: 0.5,
+    });
+
+    // Handle Window Resize to keep canvases sharp
+    window.addEventListener("resize", () => {
+        ScrollTrigger.refresh();
+    });
+</script>
+
+
+<!-- GLOBAL LOADER -->
+<div id="globalLoader" class="fixed inset-0 z-[9999] hidden items-center justify-center backdrop-blur-2xl bg-black/50">
+    
+    <div class="flex flex-col items-center gap-4">
+        <img id="loaderImage" src="" class="w-40 h-40 object-contain" />
+        <p class="text-white font-semibold tracking-wide">Processing...</p>
+    </div>
+
+</div>
+
+<script>
+    /* ------------------------------
+       RANDOM LOADER SYSTEM
+    ------------------------------ */
+
+    const loaderImages = [
+        "/stich/assets/loading/loader1.gif",
+        "/stich/assets/loading/loader2.gif",
+        "/stich/assets/loading/loader3.gif",
+        "/stich/assets/loading/loader4.gif",
+        "/stich/assets/loading/loader5.gif",
+        "/stich/assets/loading/loader6.gif",
+        "/stich/assets/loading/loader7.gif",
+        "/stich/assets/loading/loader8.gif"
+    ];
+
+    function getRandomLoader() {
+        return loaderImages[Math.floor(Math.random() * loaderImages.length)];
+    }
+
+    function showLoader() {
+        const loader = document.getElementById("globalLoader");
+        const img = document.getElementById("loaderImage");
+
+        img.src = getRandomLoader();
+        loader.classList.add("show");
+    }
+
+    function hideLoader() {
+        const loader = document.getElementById("globalLoader");
+        loader.classList.remove("show");
+    }
+
+
+
+window.addEventListener("pageshow", function () {
+    hideLoader();
+});
+</script>
+</body></html>
