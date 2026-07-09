@@ -57,7 +57,7 @@
   <tr>
     <td align="center" colspan="2">
       <strong>Inspect Risk</strong><br>
-      <img src="sss/img7.png" width="400">
+      <img src="ss/img7.png" width="400">
     </td>
   </tr>
 </table>
